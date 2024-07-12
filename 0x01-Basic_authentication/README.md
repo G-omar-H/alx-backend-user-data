@@ -1,71 +1,42 @@
-# Basic Authentication API
+# Simple API
 
-## Overview
-Implement Basic Authentication for a simple API. Learn about authentication, Base64 encoding, and securing APIs using Basic Authentication.
+Simple HTTP API for playing with `User` model.
 
-## Requirements
-- Python 3.7
-- Ubuntu 18.04 LTS
-- `pip`, `pycodestyle`
+
+## Files
+
+### `models/`
+
+- `base.py`: base of all models of the API - handle serialization to file
+- `user.py`: user model
+
+### `api/v1`
+
+- `app.py`: entry point of the API
+- `views/index.py`: basic endpoints of the API: `/status` and `/stats`
+- `views/users.py`: all users endpoints
+
 
 ## Setup
-1. **Clone Repository:**
-    ```sh
-    git clone https://github.com/yourusername/alx-backend-user-data.git
-    cd alx-backend-user-data/0x01-Basic_authentication
-    ```
-2. **Install Dependencies:**
-    ```sh
-    pip3 install -r requirements.txt
-    ```
-3. **Start Server:**
-    ```sh
-    API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=basic_auth python3 -m api.v1.app
-    ```
-4. **Test API:**
-    ```sh
-    curl "http://0.0.0.0:5000/api/v1/status" -vvv
-    ```
 
-## Tasks
-1. **Simple-basic-API:**
-   - Set up and start the server using the provided archive.
+```
+$ pip3 install -r requirements.txt
+```
 
-2. **Error Handlers:**
-   - 401 (Unauthorized): Return `{"error": "Unauthorized"}`.
-   - 403 (Forbidden): Return `{"error": "Forbidden"}`.
 
-3. **Auth Class:**
-   - Manage API authentication, retrieve authorization headers, and get the current user.
+## Run
 
-4. **Routes without Authentication:**
-   - Update `require_auth` to handle unauthenticated routes.
+```
+$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
+```
 
-5. **Request Validation:**
-   - Secure API requests using `before_request` in Flask.
 
-6. **BasicAuth Class:**
-   - Inherit from `Auth` to handle Basic Authentication.
+## Routes
 
-7. **Base64 Extraction and Decoding:**
-   - Extract and decode Base64 strings from the authorization header.
-
-8. **User Credentials:**
-   - Extract user email and password from decoded Base64 strings.
-
-9. **User Object:**
-   - Return User instance based on email and password.
-
-## Testing
-- Use `curl` to test endpoints, both authenticated and unauthenticated requests.
-
-## License
-MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contributing
-Pull requests are welcome. Open an issue for major changes.
-
----
-
-**Note:** For real-world scenarios, use established libraries and frameworks for secure authentication.
-
+- `GET /api/v1/status`: returns the status of the API
+- `GET /api/v1/stats`: returns some stats of the API
+- `GET /api/v1/users`: returns the list of users
+- `GET /api/v1/users/:id`: returns an user based on the ID
+- `DELETE /api/v1/users/:id`: deletes an user based on the ID
+- `POST /api/v1/users`: creates a new user (JSON parameters: `email`, `password`, `last_name` (optional) and `first_name` (optional))
+- `PUT /api/v1/users/:id`: updates an user based on the ID (JSON parameters: `last_name` and `first_name`)
