@@ -9,3 +9,4 @@ class Basic_auth(Auth):
     """
     Base64 part of the Authorization header for a Basic Authentication
     """
+    pass
