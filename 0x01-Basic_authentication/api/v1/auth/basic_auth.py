@@ -77,11 +77,14 @@ class BasicAuth(Auth):
         Args:
             self (_type_): _description_
         """
-        if user_email is None or user_pwd is None:
+        if user_email is None or not isinstance(user_email, str):
             return None
-        if not User.search({'email': user_email}):
+        if user_pwd is None or not isinstance(user_pwd, str):
             return None
-        tmp = User.search({'email': user_email})
-        if not User.is_valid_password(tmp[0], user_pwd):
+        users = User.search({'email': user_email})
+        if not users or users == {}:
             return None
-        return tmp[0]
+        for user in users:
+            if user.is_valid_password(user_pwd):
+                return user
+        return None
