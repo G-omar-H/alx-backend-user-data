@@ -43,6 +43,7 @@ class BasicAuth(Auth):
                 base64_authorization_header, str):
             return None
         try:
-            return base64.b64decode(base64_authorization_header)
+            return base64.b64decode(
+                base64_authorization_header).decode('utf-8')
         except base64.binascii.Error as err:
             return None
