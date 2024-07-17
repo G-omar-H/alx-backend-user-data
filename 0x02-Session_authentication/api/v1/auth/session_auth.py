@@ -50,9 +50,26 @@ class SessionAuth(Auth):
         Args:
             request (_type_, optional): _description_. Defaults to None.
         """
-        print(self.user_id_by_session_id)
         if request:
             sessionCookie = self.session_cookie(request)
             if sessionCookie:
                 userId = self.user_id_for_session_id(sessionCookie)
                 return User.get(userId)
+
+    def destroy_session(self, request=None):
+        """
+        deletes the user session / logout
+
+        Args:
+            request (_type_, optional): _description_. Defaults to None.
+        """
+        if request is None:
+            return False
+        sessionId = self.session_cookie(request)
+        if not sessionId:
+            return False
+        userId = self.user_id_for_session_id(sessionId)
+        if not userId:
+            return False
+        del self.user_id_by_session_id[sessionId]
+        return True
