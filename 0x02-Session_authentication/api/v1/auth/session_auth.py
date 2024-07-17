@@ -3,6 +3,7 @@
 session_auth.py
 """
 from api.v1.auth.auth import Auth
+from models.user import User
 import uuid
 
 
@@ -41,3 +42,24 @@ class SessionAuth(Auth):
         if session_id is None or not isinstance(session_id, str):
             return None
         return self.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None):
+        """
+        returns a User instance based on a cookie value
+
+        Args:
+            request (_type_, optional): _description_. Defaults to None.
+        """
+        print(self.user_id_by_session_id)
+        if request is None:
+            return None
+        sessionId = request.cookies.get('_my_session_id')
+        userId = self.user_id_for_session_id(sessionId)
+        if not userId:
+            return None
+        users = User.search({'id': userId})
+        if users is None or users == {}:
+            return None
+        for user in users:
+            if user.id == userId:
+                return user
