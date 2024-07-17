@@ -51,15 +51,8 @@ class SessionAuth(Auth):
             request (_type_, optional): _description_. Defaults to None.
         """
         print(self.user_id_by_session_id)
-        if request is None:
-            return None
-        sessionId = request.cookies.get('_my_session_id')
-        userId = self.user_id_for_session_id(sessionId)
-        if not userId:
-            return None
-        users = User.search({'id': userId})
-        if users is None or users == {}:
-            return None
-        for user in users:
-            if user.id == userId:
-                return user
+        if request:
+            sessionCookie = self.session_cookie(request)
+            if sessionCookie:
+                userId = self.user_id_for_session_id(sessionCookie)
+                return User.get(userId)
