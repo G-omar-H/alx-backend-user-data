@@ -72,12 +72,7 @@ class DB:
         Args:
             id (int): _description_
         """
-        try:
-            user = self.find_user_by(id=userId)
-        except NoResultFound:
-            return None
-        if not user:
-            return None
+        user = self.find_user_by(id=userId)
         for k, v in kwargs.items():
             if not hasattr(user, k):
                 raise ValueError
