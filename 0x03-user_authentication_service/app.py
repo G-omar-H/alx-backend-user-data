@@ -72,7 +72,7 @@ def profile() -> str:
     if not session_id or not isinstance(session_id, str):
         abort(403)
     if user:
-        return jsonify({"email": f"{email}"}), 200
+        return jsonify({"email": user.email}), 200
     abort(403)
 
 
