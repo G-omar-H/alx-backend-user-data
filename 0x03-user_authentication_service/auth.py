@@ -29,7 +29,8 @@ def _generate_uuid() -> str:
 
 
 class Auth:
-    """Auth class to interact with the authentication database.
+    """
+    Auth class to interact with the authentication database.
     """
 
     def __init__(self):
@@ -77,3 +78,21 @@ class Auth:
 
         except NoResultFound:
             return False
+
+    def create_session(self, email: str) -> str:
+        """
+        create a session id for the reistred user
+
+        Args:
+            email (str): _description_
+
+        Returns:
+            str: _description_
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            sessionId = _generate_uuid()
+            self._db.update_user(user.id, session_id=sessionId)
+            return sessionId
+        except NoResultFound:
+            return None
