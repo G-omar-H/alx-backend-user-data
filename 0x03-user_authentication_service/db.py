@@ -3,10 +3,12 @@
 DB module
 """
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 from typing import TypeVar
 
 from user import Base, User
@@ -45,3 +47,30 @@ class DB:
         session.add(newUser)
         session.commit()
         return newUser
+
+    def find_user_by(self, **kwargs: dict) -> User:
+        """
+         takes in arbitrary keyword arguments and returns the first row found in the users table as filtered by the method's input arguments
+
+        Returns:
+            User: _description_
+        """
+        session = self._session
+        query = session.query(User)
+
+        mapper = inspect(User)
+
+        for k, v in kwargs.items():
+            if k in mapper.columns:
+                query = query.filter(getattr(User, k) == v)
+            else:
+                raise InvalidRequestError
+
+        try:
+            user = query.first()
+            if user:
+                return user
+            else:
+                raise NoResultFound
+        except NoResultFound:
+            raise
