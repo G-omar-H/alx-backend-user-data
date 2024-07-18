@@ -1,4 +1,3 @@
-"""
 # User Authentication Service - 0x03
 
 ## Overview
@@ -86,45 +85,59 @@ Attributes:
 1. Create User
 
 Complete the DB class to implement the add_user method. This method should save a user to the database with the given email and hashed_password.
+
 2. Find User
 
 Implement the DB.find_user_by method. This method should return the first row found in the users table as filtered by the method’s input arguments. Raise NoResultFound and InvalidRequestError appropriately.
+
 3. Update User
 
 Implement the DB.update_user method that updates a user's attributes and commits the changes to the database. Raise a ValueError for invalid arguments.
+
 4. Hash Password
 
 Define a _hash_password method that returns a salted hash of the input password using bcrypt.
+
 5. Register User
 
 Implement the Auth.register_user method. If a user already exists with the provided email, raise a ValueError. Otherwise, hash the password, save the user to the database, and return the User object.
+
 6. Basic Flask App
 
 Set up a basic Flask app with a single GET route ("/") that returns a JSON payload: {"message": "Bienvenue"}.
+
 7. Register User Endpoint
 
 Implement the POST /users route to register a user. Return appropriate JSON payloads for successful registration and already registered emails.
+
 8. Credentials Validation
 
 Implement the Auth.valid_login method to validate email and password.
+
 9. Generate UUIDs
 
 Implement a _generate_uuid function that returns a string representation of a new UUID.
+
 10. Get Session ID
 
 Implement the Auth.create_session method to generate and store a session ID for a user, and return the session ID.
+
 11. Log In
 
 Implement the POST /sessions route to log in a user and set the session ID as a cookie.
+
 12. Find User by Session ID
 
 Implement the Auth.get_user_from_session_id method to find and return the user corresponding to the session ID.
+
 13. Destroy Session
 
 Implement Auth.destroy_session to update the user's session ID to None.
+
 14. Log Out
 
 Implement the DELETE /sessions route to log out a user by destroying their session and redirecting to GET /.
+
 15. User Profile
 
 Implement the GET /profile route to return the user's email if a valid session ID is provided. Return a 403 status code for invalid session IDs or non-existent users.
