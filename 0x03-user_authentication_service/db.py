@@ -61,7 +61,8 @@ class DB:
         query = session.query(User)
 
         mapper = inspect(User)
-
+        if not kwargs:
+            return None
         for k, v in kwargs.items():
             if k in mapper.columns:
                 query = query.filter(getattr(User, k) == v)
