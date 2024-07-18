@@ -51,14 +51,11 @@ def logout():
     logout and kill user session
     """
     session_id = request.cookies.get('session_id')
-    try:
-        user = AUTH._db.get_user_from_session_id(session_id)
-        if not user:
-            abort(403)
-        AUTH._db.destroy_session(user.id)
-        return redirect('/')
-    except NoResultFound:
+    user = AUTH._db.get_user_from_session_id(session_id)
+    if not user:
         abort(403)
+    AUTH._db.destroy_session(user.id)
+    return redirect('/')
 
 
 if __name__ == "__main__":
