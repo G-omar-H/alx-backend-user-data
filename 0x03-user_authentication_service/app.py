@@ -65,12 +65,13 @@ def profile() -> str:
     """
     return the loged user profile
     """
+    email = request.form.get('email')
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
     if not session_id or not isinstance(session_id, str):
         abort(403)
     if user:
-        return jsonify({"email": "<user email>"}), 200
+        return jsonify({"email": f"{email}"}), 200
     abort(403)
 
 
