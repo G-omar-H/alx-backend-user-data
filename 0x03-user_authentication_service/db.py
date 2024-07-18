@@ -62,7 +62,7 @@ class DB:
 
         mapper = inspect(User)
         if not kwargs:
-            return None
+            raise InvalidRequestError
         for k, v in kwargs.items():
             if k in mapper.columns:
                 query = query.filter(getattr(User, k) == v)
