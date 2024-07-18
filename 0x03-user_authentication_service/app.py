@@ -62,8 +62,9 @@ def logout() -> str:
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
 def profile() -> str:
-    """
-    return the loged user profile
+    """ GET /profile
+      Return:
+        - message
     """
     email = request.form.get('email')
     session_id = request.cookies.get('session_id')
