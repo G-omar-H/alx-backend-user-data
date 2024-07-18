@@ -4,6 +4,7 @@ auth.py
 """
 import bcrypt
 
+
 def _hash_password(userPwd: str) -> bytes:
     """
     hash the user password
@@ -12,6 +13,4 @@ def _hash_password(userPwd: str) -> bytes:
     Returns:
         str: _description_
     """
-    bytes = userPwd.encode('utf-8')
-    salt = bcrypt.gensalt()
-    return bcrypt.hashpw(bytes, salt)
+    return bcrypt.hashpw(userPwd.encode('utf-8'), bcrypt.gensalt())
