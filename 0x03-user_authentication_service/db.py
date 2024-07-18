@@ -65,7 +65,7 @@ class DB:
             raise InvalidRequestError
         return user
 
-    def update_user(self, id: int, **kwargs) -> None:
+    def update_user(self, userId: int, **kwargs) -> None:
         """
         update a user based on id
 
@@ -73,14 +73,13 @@ class DB:
             id (int): _description_
         """
         try:
-            user = self.find_user_by(id=id)
+            user = self.find_user_by(id=userId)
         except NoResultFound:
             return None
         if not user:
             return None
         for k, v in kwargs.items():
-            if hasattr(user, k):
-                user.k = v
-                self._session.commit()
-            else:
+            if not hasattr(user, k):
                 raise ValueError
+            setattr(user, k, v)
+        self._session.commit()
