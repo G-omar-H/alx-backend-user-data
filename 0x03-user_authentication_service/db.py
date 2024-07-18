@@ -57,23 +57,10 @@ class DB:
         Returns:
             User: _description_
         """
-        session = self._session
-        query = session.query(User)
-
-        mapper = inspect(User)
-        if not kwargs:
-            raise InvalidRequestError
-        for k, v in kwargs.items():
-            if k in mapper.columns:
-                query = query.filter(getattr(User, k) == v)
-            else:
-                raise InvalidRequestError
-
         try:
-            user = query.first()
-            if user:
-                return user
-            else:
-                raise NoResultFound
+            user = self._session.query(User).filter_by(**kwargs).one()
         except NoResultFound:
-            raise
+            raise NoResultFound
+        except InvalidRequestError:
+            raise InvalidRequestError
+        return user
