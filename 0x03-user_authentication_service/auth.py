@@ -4,8 +4,7 @@ auth.py
 """
 import bcrypt
 
-
-def _hash_password(userPwd: str) -> str:
+def _hash_password(userPwd: str) -> bytes:
     """
     hash the user password
     Args:
