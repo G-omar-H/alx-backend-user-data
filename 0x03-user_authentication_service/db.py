@@ -67,7 +67,7 @@ class DB:
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """
-        update user attribute by id
+        update user by id
 
         Args:
             user_id (int): _description_
