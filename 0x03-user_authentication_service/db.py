@@ -49,7 +49,9 @@ class DB:
 
     def find_user_by(self, **kwargs: dict) -> User:
         """
-         takes in arbitrary keyword arguments and returns the first row found in the users table as filtered by the method's input arguments
+         takes in arbitrary keyword arguments and returns
+         the first row found in the users table as filtered
+         by the method's input arguments
 
         Returns:
             User: _description_
