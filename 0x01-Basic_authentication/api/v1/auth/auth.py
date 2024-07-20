@@ -29,7 +29,7 @@ class Auth():
             return False
         for excludedPath in excluded_paths:
             if excludedPath[-1] == '*':
-                if excludedPath[:-2] in path:
+                if excludedPath[:-1] in path:
                     return False
         else:
             return True

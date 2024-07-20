@@ -7,7 +7,7 @@ a = Auth()
 
 print(a.require_auth(None, None))
 print(a.require_auth(None, []))
-print(a.require_auth("/api/v1/status/", []))
+print(a.require_auth("/api/v1/uas", ["/api/v1/us*"]))
 print(a.require_auth("/api/v1/status/", ["/api/v1/status/"]))
 print(a.require_auth("/api/v1/status", ["/api/v1/stat*"]))
 print(a.require_auth("/api/v1/users", ["/api/v1/status/"]))
